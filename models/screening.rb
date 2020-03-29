@@ -105,12 +105,10 @@ class Screening
   end
 
   def screen()
-    sql = "SELECT screens.capacity, screens.name, screenings.id
+    sql = "SELECT screens.*
            FROM screens
-           INNER JOIN films
-           ON films.screen_id = screens.id
            INNER JOIN screenings
-           ON screenings.film_id = films.id
+           ON screenings.screen_id = screens.id
            WHERE screenings.id = $1"
     values = [@id]
     result = SqlRunner.run(sql, values)
@@ -118,7 +116,16 @@ class Screening
   end
 
   def customers()
-
+    sql = "SELECT customers.*
+           FROM customers
+           INNER JOIN tickets
+           ON tickets.customer_id = customers.id
+           INNER JOIN screenings
+           ON tickets.screening_id = screenings.id
+           WHERE screenings.id = $1"
+    values = [@id]
+    result = SqlRunner.run(sql, values)
+    Customer.map_items(result).first()
   end
 
   def tickets()
