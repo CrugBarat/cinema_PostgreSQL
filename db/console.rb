@@ -159,20 +159,38 @@ screening8.save()
 ticket1 = Ticket.new({'customer_id' => customer1.id,
                       'screening_id' => screening1.id()})
 
-ticket2 = Ticket.new({'customer_id' => customer1.id,
+ticket2 = Ticket.new({'customer_id' => customer3.id,
                       'screening_id' => screening2.id()})
 
 ticket3 = Ticket.new({'customer_id' => customer2.id,
                       'screening_id' => screening3.id()})
 
-ticket4 = Ticket.new({'customer_id' => customer1.id,
-                      'screening_id' => screening3.id()})
+ticket4 = Ticket.new({'customer_id' => customer4.id,
+                      'screening_id' => screening4.id()})
 
 ticket5 = Ticket.new({'customer_id' => customer1.id,
-                      'screening_id' => screening3.id()})
+                      'screening_id' => screening1.id()})
 
-ticket6 = Ticket.new({'customer_id' => customer1.id,
-                      'screening_id' => screening3.id()})
+ticket6 = Ticket.new({'customer_id' => customer2.id,
+                      'screening_id' => screening4.id()})
+
+ticket7 = Ticket.new({'customer_id' => customer3.id,
+                      'screening_id' => screening4.id()})
+
+ticket8 = Ticket.new({'customer_id' => customer4.id,
+                      'screening_id' => screening5.id()})
+
+ticket9 = Ticket.new({'customer_id' => customer1.id,
+                      'screening_id' => screening5.id()})
+
+ticket10 = Ticket.new({'customer_id' => customer2.id,
+                      'screening_id' => screening6.id()})
+
+ticket11 = Ticket.new({'customer_id' => customer3.id,
+                      'screening_id' => screening6.id()})
+
+ticket12 = Ticket.new({'customer_id' => customer4.id,
+                      'screening_id' => screening7.id()})
 
 ticket1.save()
 ticket2.save()
@@ -180,6 +198,12 @@ ticket3.save()
 ticket4.save()
 ticket5.save()
 ticket6.save()
+ticket7.save()
+ticket8.save()
+ticket9.save()
+ticket10.save()
+ticket11.save()
+ticket12.save()
 
 
 ##################################################################
@@ -187,10 +211,16 @@ ticket6.save()
 
 customer1.update_funds()
 customer2.update_funds()
+customer3.update_funds()
+customer4.update_funds()
 screening1.update_tickets_sold()
 screening2.update_tickets_sold()
 screening3.update_tickets_sold()
 screening4.update_tickets_sold()
+screening5.update_tickets_sold()
+screening6.update_tickets_sold()
+screening7.update_tickets_sold()
+screening8.update_tickets_sold()
 
 
 ##################################################################
