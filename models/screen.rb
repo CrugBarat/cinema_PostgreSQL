@@ -69,12 +69,27 @@ class Screen
     self.map_items(results)
   end
 
+  def self.all_ascending_capacity()
+    sql = "SELECT * FROM screens
+           ORDER BY capacity"
+    result = SqlRunner.run(sql)
+    self.map_items(result)
+  end
+
   def films()
     sql = "SELECT * FROM films
            WHERE screen_id = $1 "
     values =[@id]
     result = SqlRunner.run(sql, values)
     Film.map_items(result)
+  end
+
+  def self.create_a_screen(name, capacity)
+    sql = "INSERT INTO screens (name, capacity)
+           VALUES ($1, $2)
+           RETURNING *"
+    values = [name, capacity]
+    @id = SqlRunner.run(sql, values)[0]['id'].to_i
   end
 
   def self.map_items(result)

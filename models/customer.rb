@@ -71,6 +71,13 @@ class Customer
     self.map_items(results)
   end
 
+  def self.all_alphabetical_by_last_name()
+    sql = "SELECT * FROM customers
+           ORDER BY last_name"
+    result = SqlRunner.run(sql)
+    self.map_items(result)
+  end
+
   def films()
     sql = "SELECT films.*
            FROM films
@@ -120,12 +127,19 @@ class Customer
     @funds > film.price
   end
 
-  def new_ticket_funds_decrease(film)
+  def new_ticket_funds_update(film)
     result = @funds - film.price
     @funds = result.round(2)
     update()
   end
 
+  def self.create_a_customer(first_name, last_name, funds, fav_genre)
+    sql = "INSERT INTO customers (first_name, last_name, funds, fav_genre)
+           VALUES ($1, $2, $3, $4)
+           RETURNING *"
+    values = [first_name, last_name, funds, fav_genre]
+    @id = SqlRunner.run(sql, values)[0]['id'].to_i
+  end
 
   def self.map_items(result)
     result.map{|customer| Customer.new(customer)}

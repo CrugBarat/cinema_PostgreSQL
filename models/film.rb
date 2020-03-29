@@ -80,6 +80,13 @@ class Film
     self.map_items(results)
   end
 
+  def self.all_alphabetical_by_title()
+    sql = "SELECT * FROM films
+           ORDER BY title"
+    result = SqlRunner.run(sql)
+    self.map_items(result)
+  end
+
   def customers()
     sql = "SELECT customers.*
            FROM customers
@@ -103,6 +110,14 @@ class Film
 
   def number_of_customers()
     customers().size()
+  end
+
+  def self.create_a_film(title, genre, price, rating, screen_id)
+    sql = "INSERT INTO films (title, genre, price, rating, screen_id)
+           VALUES ($1, $2, $3, $4)
+           RETURNING *"
+    values = [title, genre, price, rating, screen_id]
+    @id = SqlRunner.run(sql, values)[0]['id'].to_i
   end
 
   def self.map_items(result)

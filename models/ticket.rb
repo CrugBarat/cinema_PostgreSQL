@@ -91,7 +91,8 @@ class Ticket
     return if screening.over_capacity?()
     return if !customer.has_funds?(film)
     self.create_a_ticket(customer.id, screening.id)
-    customer.new_ticket_funds_decrease(film)
+    customer.new_ticket_funds_update(film)
+    screening.number_of_tickets_new_ticket_update()
   end
 
   def self.map_items(result)

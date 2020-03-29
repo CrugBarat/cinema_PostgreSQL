@@ -65,19 +65,23 @@ film2.save()
 
 screening1 = Screening.new({'start_time' => '21:00:00',
                             'end_time' => '00:30:00',
-                            'film_id' => film1.id})
+                            'film_id' => film1.id,
+                            'number_of_tickets' => 0})
 
 screening2 = Screening.new({'start_time' => '01:00:00',
                             'end_time' => '03:30:00',
-                            'film_id' => film1.id})
+                            'film_id' => film1.id,
+                            'number_of_tickets' => 0})
 
 screening3 = Screening.new({'start_time' => '12:00:00',
                             'end_time' => '14:00:00',
-                            'film_id' => film2.id})
+                            'film_id' => film2.id,
+                            'number_of_tickets' => 0})
 
 screening4 = Screening.new({'start_time' => '14:30:00',
                             'end_time' => '16:30:00',
-                            'film_id' => film2.id})
+                            'film_id' => film2.id,
+                            'number_of_tickets' => 0})
 
 screening1.save()
 screening2.save()

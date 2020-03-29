@@ -10,7 +10,7 @@ class Screening
     @start_time = options['start_time']
     @end_time = options['end_time']
     @film_id = options['film_id'].to_i
-    @number_of_tickets = 0
+    @number_of_tickets = options['number_of_tickets']
   end
 
   def save()
@@ -80,6 +80,20 @@ class Screening
     self.map_items(results)
   end
 
+  def self.all_ascending_by_number_of_tickets()
+    sql = "SELECT * FROM screenings
+           ORDER BY number_of_tickets"
+    result = SqlRunner.run(sql)
+    self.map_items(result)
+  end
+
+  def self.all_ascending_by_start_time()
+    sql = "SELECT * FROM screenings
+           ORDER BY start_time"
+    result = SqlRunner.run(sql)
+    self.map_items(result)
+  end
+
   def film()
     sql = "SELECT * FROM films
            WHERE id = $1"
@@ -102,6 +116,12 @@ class Screening
 
   def update_number_of_tickets()
     @number_of_tickets = number_of_tickets()
+    update()
+  end
+
+  def number_of_tickets_new_ticket_update()
+    result = @number_of_tickets + 1
+    @number_of_tickets = result
     update()
   end
 
@@ -128,6 +148,14 @@ class Screening
 
   def over_capacity?()
     capacity() <= number_of_tickets()
+  end
+
+  def self.create_a_screening(start_time, end_time, film_id)
+    sql = "INSERT INTO screening (start_time, end_time, film_id)
+           VALUES ($1, $2, $3)
+           RETURNING *"
+    values = [start_time, end_time, film_id]
+    @id = SqlRunner.run(sql, values)[0]['id'].to_i
   end
 
   def self.map_items(result)
