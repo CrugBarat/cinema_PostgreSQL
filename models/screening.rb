@@ -111,12 +111,12 @@ class Screening
     Ticket.map_items(result)
   end
 
-  def number_of_tickets()
+  def tickets_sold()
     tickets().size()
   end
 
-  def update_number_of_tickets()
-    @number_of_tickets = number_of_tickets()
+  def update_tickets_sold()
+    @number_of_tickets = tickets_sold()
     update()
   end
 

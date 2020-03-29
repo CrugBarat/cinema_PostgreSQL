@@ -123,10 +123,10 @@ ticket6.save()
 
 customer1.update_funds()
 customer2.update_funds()
-screening1.update_number_of_tickets()
-screening2.update_number_of_tickets()
-screening3.update_number_of_tickets()
-screening4.update_number_of_tickets()
+screening1.update_tickets_sold()
+screening2.update_tickets_sold()
+screening3.update_tickets_sold()
+screening4.update_tickets_sold()
 
 
 ##################################################################
