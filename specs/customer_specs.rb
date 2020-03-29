@@ -11,7 +11,8 @@ class TestCustomer < MiniTest::Test
     @customer1 = Customer.new({'first_name' => 'John',
                                'last_name' =>'Doe',
                                'funds' => 45.00,
-                               'fav_genre' => 'Action'})
+                               'fav_genre' => 'Action',
+                               'age' => 28})
 
     @film1 = Film.new({'title' => 'Frozen',
                        'genre' => 'Animation',
@@ -36,6 +37,10 @@ class TestCustomer < MiniTest::Test
     assert_equal('Action', @customer1.fav_genre())
   end
 
+  def test_get_age()
+    assert_equal(28, @customer1.age())
+  end
+
   def test_set_first_name()
     @customer1.first_name = 'David'
     assert_equal('David', @customer1.first_name())
@@ -54,6 +59,11 @@ class TestCustomer < MiniTest::Test
   def test_set_fav_genre()
     @customer1.fav_genre = 'Sci-Fi'
     assert_equal('Sci-Fi', @customer1.fav_genre())
+  end
+
+  def test_set_age()
+    @customer1.age = 42
+    assert_equal(42, @customer1.age())
   end
 
   def test_has_funds?()
