@@ -45,16 +45,16 @@ screen2.save()
 #FILMS
 
 film1 = Film.new({'title' => 'Pulp Fiction',
-                             'genre' => 'Crime',
-                             'price' => 6.50,
-                             'rating' => '15',
-                             'screen_id' => screen1.id()})
+                  'genre' => 'Crime',
+                  'price' => 6.50,
+                  'rating' => '15',
+                  'screen_id' => screen1.id()})
 
 film2 = Film.new({'title' => 'Monsters Inc',
-                             'genre' => 'Animation',
-                             'price' => 8.95,
-                             'rating' => 'U',
-                             'screen_id' => screen2.id()})
+                  'genre' => 'Animation',
+                  'price' => 8.95,
+                  'rating' => 'U',
+                  'screen_id' => screen2.id()})
 
 film1.save()
 film2.save()
