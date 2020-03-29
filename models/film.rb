@@ -15,7 +15,8 @@ class Film
   end
 
   def save()
-    sql = "INSERT INTO films (title, genre, price, rating, screen_id)
+    sql = "INSERT INTO films
+           (title, genre, price, rating, screen_id)
            VALUES ($1, $2, $3, $4, $5)
            RETURNING *"
     values = [@title, @genre, @price, @rating, @screen_id]
@@ -29,7 +30,8 @@ class Film
   end
 
   def update()
-    sql = "UPDATE films SET (title, genre, price, rating, screen_id)
+    sql = "UPDATE films SET
+           (title, genre, price, rating, screen_id)
            = ($1, $2, $3, $4, $5)
            WHERE id = $6"
     values = [@title, @genre, @price, @rating, @screen_id, @id]
@@ -88,8 +90,7 @@ class Film
   end
 
   def customers()
-    sql = "SELECT customers.*
-           FROM customers
+    sql = "SELECT customers.* FROM customers
            INNER JOIN tickets
            ON tickets.customer_id = customers.id
            INNER JOIN screenings
@@ -113,7 +114,8 @@ class Film
   end
 
   def self.create_a_film(title, genre, price, rating, screen_id)
-    sql = "INSERT INTO films (title, genre, price, rating, screen_id)
+    sql = "INSERT INTO films
+           (title, genre, price, rating, screen_id)
            VALUES ($1, $2, $3, $4)
            RETURNING *"
     values = [title, genre, price, rating, screen_id]

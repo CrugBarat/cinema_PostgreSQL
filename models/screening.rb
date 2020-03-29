@@ -14,7 +14,8 @@ class Screening
   end
 
   def save()
-    sql = "INSERT INTO screenings (start_time, end_time, film_id)
+    sql = "INSERT INTO screenings
+           (start_time, end_time, film_id)
            VALUES ($1, $2, $3)
            RETURNING *"
     values = [@start_time, @end_time, @film_id]
@@ -151,11 +152,19 @@ class Screening
   end
 
   def self.create_a_screening(start_time, end_time, film_id)
-    sql = "INSERT INTO screening (start_time, end_time, film_id)
+    sql = "INSERT INTO screening
+           (start_time, end_time, film_id)
            VALUES ($1, $2, $3)
            RETURNING *"
     values = [start_time, end_time, film_id]
     @id = SqlRunner.run(sql, values)[0]['id'].to_i
+  end
+
+  def self.all_ascending_by_number_of_tickets()
+    sql = "SELECT * FROM screenings
+           ORDER BY number_of_tickets"
+    result = SqlRunner.run(sql)
+    self.map_items(result)
   end
 
   def self.map_items(result)

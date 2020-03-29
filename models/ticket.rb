@@ -14,7 +14,8 @@ class Ticket
   end
 
   def save()
-    sql = "INSERT INTO tickets (customer_id, screening_id)
+    sql = "INSERT INTO tickets
+           (customer_id, screening_id)
            VALUES ($1, $2)
            RETURNING *"
     values = [@customer_id, @screening_id]
@@ -28,7 +29,8 @@ class Ticket
   end
 
   def update()
-    sql = "UPDATE tickets SET (customer_id, screening_id)
+    sql = "UPDATE tickets
+           SET (customer_id, screening_id)
            = ($1, $2)
            WHERE id = $3"
     values = [@customer_id, @screening_id, @id]
@@ -80,7 +82,8 @@ class Ticket
   end
 
   def self.create_a_ticket(customer_id, screening_id)
-    sql = "INSERT INTO tickets (customer_id, screening_id)
+    sql = "INSERT INTO tickets
+           (customer_id, screening_id)
            VALUES ($1, $2)
            RETURNING *"
     values = [customer_id, screening_id]

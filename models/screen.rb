@@ -26,7 +26,8 @@ class Screen
   end
 
   def update()
-    sql = "UPDATE screens SET (name, capacity)
+    sql = "UPDATE screens
+           SET (name, capacity)
            = ($1, $2)
            WHERE id = $3"
     values = [@name, @capacity, @id]
@@ -63,7 +64,8 @@ class Screen
 
   def self.find_by_capacity_range(cap1, cap2)
     sql = "SELECT * FROM screens
-           WHERE capacity >= $1 AND capacity <= $2"
+           WHERE capacity >= $1
+           AND capacity <= $2"
     values = [cap1, cap2]
     results = SqlRunner.run(sql, values)
     self.map_items(results)

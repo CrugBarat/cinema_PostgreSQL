@@ -119,7 +119,7 @@ ticket6.save()
 
 
 ##################################################################
-# UPDATES
+# UPDATES TO EXISTING DATA
 
 customer1.update_funds()
 customer2.update_funds()

@@ -14,7 +14,8 @@ class Customer
   end
 
   def save()
-    sql = "INSERT INTO customers (first_name, last_name, funds, fav_genre)
+    sql = "INSERT INTO customers
+           (first_name, last_name, funds, fav_genre)
            VALUES ($1, $2, $3, $4)
            RETURNING *"
     values = [@first_name, @last_name, @funds, @fav_genre]
@@ -28,7 +29,8 @@ class Customer
   end
 
   def update()
-    sql = "UPDATE customers SET (first_name, last_name, funds, fav_genre)
+    sql = "UPDATE customers
+           SET (first_name, last_name, funds, fav_genre)
            = ($1, $2, $3, $4)
            WHERE id = $5"
     values = [@first_name, @last_name, @funds, @fav_genre, @id]
@@ -55,9 +57,10 @@ class Customer
     self.returning_single_customer(results)
   end
 
-  def self.find_by_first_last_name(first_name, last_name)
+  def self.find_by_name(first_name, last_name)
     sql = "SELECT * FROM customers
-           WHERE first_name = $1 AND last_name = $2"
+           WHERE first_name = $1
+           AND last_name = $2"
     values = [first_name, last_name]
     results = SqlRunner.run(sql, values)
     self.returning_single_customer(results)
@@ -79,8 +82,7 @@ class Customer
   end
 
   def films()
-    sql = "SELECT films.*
-           FROM films
+    sql = "SELECT films.* FROM films
            INNER JOIN screenings
            ON screenings.film_id = films.id
            INNER JOIN tickets
@@ -92,8 +94,7 @@ class Customer
   end
 
   def screenings()
-    sql = "SELECT screenings.*
-           FROM screenings
+    sql = "SELECT screenings.* FROM screenings
            INNER JOIN tickets
            ON tickets.screening_id = screenings.id
            WHERE tickets.customer_id = $1"
@@ -134,16 +135,19 @@ class Customer
   end
 
   def self.create_a_customer(first_name, last_name, funds, fav_genre)
-    sql = "INSERT INTO customers (first_name, last_name, funds, fav_genre)
+    sql = "INSERT INTO customers
+           (first_name, last_name, funds, fav_genre)
            VALUES ($1, $2, $3, $4)
            RETURNING *"
     values = [first_name, last_name, funds, fav_genre]
     @id = SqlRunner.run(sql, values)[0]['id'].to_i
   end
 
+
   def self.map_items(result)
     result.map{|customer| Customer.new(customer)}
   end
+
 
   def self.returning_single_customer(results)
     return nil if results.first() == nil
