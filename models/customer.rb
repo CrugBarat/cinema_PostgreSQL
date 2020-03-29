@@ -47,28 +47,52 @@ class Customer
     SqlRunner.run(sql)
   end
 
-  def self.map_items(result)
-    result.map{|customer| Customer.new(customer)}
+  def self.find_by_id(id)
+    sql = "SELECT * FROM customers
+           WHERE id = $1"
+    values = [id]
+    results = SqlRunner.run(sql, values)
+    self.returning_single_customer(results)
+  end
+
+  def self.find_by_first_last_name(first_name, last_name)
+    sql = "SELECT * FROM customers
+           WHERE first_name = $1 AND last_name = $2"
+    values = [first_name, last_name]
+    results = SqlRunner.run(sql, values)
+    self.returning_single_customer(results)
+  end
+
+  def self.find_by_fav_genre(fav_genre)
+    sql = "SELECT * FROM customers
+           WHERE fav_genre = $1"
+    values = [fav_genre]
+    results = SqlRunner.run(sql, values)
+    self.map_items(results)
   end
 
   def films()
     sql = "SELECT films.*
            FROM films
+           INNER JOIN screenings
+           ON screenings.film_id = films.id
            INNER JOIN tickets
-           ON tickets.film_id = films.id
+           ON tickets.screening_id = screenings.id
            WHERE tickets.customer_id = $1"
     values = [@id]
     result = SqlRunner.run(sql, values)
     Film.map_items(result)
   end
 
-  def self.find_by_id(id)
-    sql = "SELECT * FROM customers
-           WHERE id = $1"
-    values = [id]
-    results = SqlRunner.run(sql, values)
-    return nil if results.first() == nil
-    return Customer.new(results.first())
+  def screenings()
+    sql = "SELECT screenings.*
+           FROM screenings
+           INNER JOIN tickets
+           ON tickets.screening_id = screenings.id
+           WHERE tickets.customer_id = $1"
+    values = [@id]
+    result = SqlRunner.run(sql, values)
+    Screening.map_items(result)
   end
 
   def tickets()
@@ -79,9 +103,37 @@ class Customer
     Ticket.map_items(result)
   end
 
-  def self.number_of_tickets(customer)
-    result = customer.tickets
-    result.size()
+  def number_of_tickets()
+    tickets().size()
+  end
+
+  def remaining_funds()
+    @funds - self.films().map {|film| film.price.to_f}.sum
+  end
+
+  def update_funds()
+    @funds = remaining_funds().round(2)
+    update()
+  end
+
+  def has_funds?(film)
+    @funds > film.price
+  end
+
+  def new_ticket_funds_decrease(film)
+    result = @funds - film.price
+    @funds = result.round(2)
+    update()
+  end
+
+
+  def self.map_items(result)
+    result.map{|customer| Customer.new(customer)}
+  end
+
+  def self.returning_single_customer(results)
+    return nil if results.first() == nil
+    return Customer.new(results.first())
   end
 
 end

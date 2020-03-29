@@ -27,15 +27,16 @@ CREATE TABLE films (
   screen_id INT REFERENCES screens(id) ON DELETE CASCADE
 );
 
-CREATE TABLE tickets (
-  id SERIAL PRIMARY KEY,
-  customer_id INT REFERENCES customers(id) ON DELETE CASCADE,
-  film_id INT REFERENCES films(id) ON DELETE CASCADE
-);
-
 CREATE TABLE screenings (
   id SERIAL PRIMARY KEY,
   start_time TIME(0),
   end_time TIME(0),
-  film_id INT REFERENCES films(id) ON DELETE CASCADE
+  film_id INT REFERENCES films(id) ON DELETE CASCADE,
+  number_of_tickets INT
+);
+
+CREATE TABLE tickets (
+  id SERIAL PRIMARY KEY,
+  customer_id INT REFERENCES customers(id) ON DELETE CASCADE,
+  screening_id INT REFERENCES screenings(id) ON DELETE CASCADE
 );

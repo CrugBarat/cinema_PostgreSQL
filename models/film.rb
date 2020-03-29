@@ -48,8 +48,36 @@ class Film
     SqlRunner.run(sql)
   end
 
-  def self.map_items(result)
-    result.map{|film| Film.new(film)}
+  def self.find_by_id(id)
+    sql = "SELECT * FROM films
+           WHERE id = $1"
+    values = [id]
+    results = SqlRunner.run(sql, values)
+    self.returning_single_film(results)
+  end
+
+  def self.find_by_title(title)
+    sql = "SELECT * FROM films
+           WHERE title = $1"
+    values = [title]
+    results = SqlRunner.run(sql, values)
+    self.returning_single_film(results)
+  end
+
+  def self.find_by_genre(genre)
+    sql = "SELECT * FROM films
+           WHERE genre = $1"
+    values = [genre]
+    results = SqlRunner.run(sql, values)
+    self.map_items(results)
+  end
+
+  def self.find_by_price_range(price1, price2)
+    sql = "SELECT * FROM films
+           WHERE price >= $1 AND price <= $2"
+    values = [price1, price2]
+    results = SqlRunner.run(sql, values)
+    self.map_items(results)
   end
 
   def customers()
@@ -57,32 +85,33 @@ class Film
            FROM customers
            INNER JOIN tickets
            ON tickets.customer_id = customers.id
-           WHERE tickets.film_id = $1"
+           INNER JOIN screenings
+           ON tickets.screening_id = screenings.id
+           WHERE screenings.film_id = $1"
     values = [@id]
     result = SqlRunner.run(sql, values)
     Customer.map_items(result)
   end
 
-  def self.find_by_id(id)
-    sql = "SELECT * FROM films
-           WHERE id = $1"
-    values = [id]
-    results = SqlRunner.run(sql, values)
-    return nil if results.first() == nil
-    return Film.new(results.first())
-  end
-
-  def tickets()
-    sql = "SELECT * FROM tickets
+  def screenings()
+    sql = "SELECT * FROM screenings
            WHERE film_id = $1 "
     values =[@id]
     result = SqlRunner.run(sql, values)
-    Ticket.map_items(result)
+    Screening.map_items(result)
   end
 
-  def self.number_of_tickets(film)
-    result = film.tickets
-    result.size()
+  def number_of_customers()
+    customers().size()
+  end
+
+  def self.map_items(result)
+    result.map{|film| Film.new(film)}
+  end
+
+  def self.returning_single_film(results)
+    return nil if results.first() == nil
+    return Film.new(results.first())
   end
 
 end
