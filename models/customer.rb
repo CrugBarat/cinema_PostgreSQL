@@ -116,7 +116,7 @@ class Customer
   end
 
   def remaining_funds()
-    @funds - self.films().map {|film| film.price.to_f}.sum
+    @funds - films().map {|film| film.price.to_f}.sum
   end
 
   def update_funds()
@@ -143,11 +143,14 @@ class Customer
     @id = SqlRunner.run(sql, values)[0]['id'].to_i
   end
 
+  def fav_genre_showing?()
+    film_genres = films().map {|film| film.genre}
+    film_genres.include?(@fav_genre)
+  end
 
   def self.map_items(result)
     result.map{|customer| Customer.new(customer)}
   end
-
 
   def self.returning_single_customer(results)
     return nil if results.first() == nil
