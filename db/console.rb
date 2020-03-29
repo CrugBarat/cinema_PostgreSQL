@@ -17,7 +17,7 @@ Screen.delete_all()
 customer1 = Customer.new({'first_name' => 'Charles',
                           'last_name' => 'Xavier',
                           'funds' => 50.50,
-                          'fav_genre' => 'Sci-Fi',
+                          'fav_genre' => 'Crime',
                           'age' => 60})
 
 customer2 = Customer.new({'first_name' => 'Jean',
@@ -26,8 +26,22 @@ customer2 = Customer.new({'first_name' => 'Jean',
                           'fav_genre' => 'Animation',
                           'age' => 14})
 
+customer3 = Customer.new({'first_name' => 'Scott',
+                          'last_name' => 'Summers',
+                          'funds' => 5.50,
+                          'fav_genre' => 'Sci-Fi',
+                          'age' => 21})
+
+customer4 = Customer.new({'first_name' => 'Ororo',
+                          'last_name' => 'Munroe',
+                          'funds' => 43.75,
+                          'fav_genre' => 'Fantasy',
+                          'age' => 33})
+
 customer1.save()
 customer2.save()
+customer3.save()
+customer4.save()
 
 
 ##################################################################
