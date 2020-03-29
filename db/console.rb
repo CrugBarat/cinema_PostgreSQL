@@ -17,7 +17,7 @@ Screen.delete_all()
 customer1 = Customer.new({'first_name' => 'Charles',
                           'last_name' => 'Xavier',
                           'funds' => 35.50,
-                          'fav_genre' => 'Crime'})
+                          'fav_genre' => 'Sci-Fi'})
 
 customer2 = Customer.new({'first_name' => 'Jean',
                           'last_name' => 'Grey',
@@ -35,7 +35,7 @@ screen1 = Screen.new({'name' => 'Screen 1',
                       'capacity' => 25})
 
 screen2 = Screen.new({'name' => 'Screen 2',
-                      'capacity' => 4})
+                      'capacity' => 5})
 
 screen1.save()
 screen2.save()

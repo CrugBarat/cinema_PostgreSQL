@@ -98,6 +98,25 @@ class Ticket
     screening.number_of_tickets_new_ticket_update()
   end
 
+  def self.sell_meerkat_tuesdays_bogof(customer, film, screening)
+    return if screening.over_capacity?()
+    return if !customer.has_funds?(film)
+    self.create_a_ticket(customer.id, screening.id)
+    self.create_a_ticket(customer.id, screening.id)
+    customer.new_ticket_funds_update(film)
+    screening.number_of_tickets_new_ticket_update()
+  end
+
+  def self.sell_fav_genre_promotion(customer, film, screening)
+    return if customer.fav_genre_equals_film_genre?(film)
+    return if screening.over_capacity?()
+    return if !customer.has_funds?(film)
+    return if !customer.fav_genre_showing?()
+    self.create_a_ticket(customer.id, screening.id)
+    customer.new_ticket_funds_update_fav_genre_discount(film)
+    screening.number_of_tickets_new_ticket_update()
+  end
+
   def self.map_items(result)
     result.map{|ticket| Ticket.new(ticket)}
   end

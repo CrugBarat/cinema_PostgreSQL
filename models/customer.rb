@@ -134,6 +134,13 @@ class Customer
     update()
   end
 
+  def new_ticket_funds_update_fav_genre_discount(film)
+    discount = film.price * 0.8
+    result = @funds - discount
+    @funds = result.round(2)
+    update()
+  end
+
   def self.create_a_customer(first_name, last_name, funds, fav_genre)
     sql = "INSERT INTO customers
            (first_name, last_name, funds, fav_genre)
@@ -146,6 +153,10 @@ class Customer
   def fav_genre_showing?()
     film_genres = films().map {|film| film.genre}
     film_genres.include?(@fav_genre)
+  end
+
+  def fav_genre_equals_film_genre?(film)
+    @fav_genre != film.genre
   end
 
   def self.map_items(result)
