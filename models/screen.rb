@@ -78,12 +78,51 @@ class Screen
     self.map_items(result)
   end
 
-  def films()
-    sql = "SELECT * FROM films
+  def screenings()
+    sql = "SELECT * FROM screenings
            WHERE screen_id = $1 "
     values =[@id]
     result = SqlRunner.run(sql, values)
+    Screening.map_items(result)
+  end
+
+  def films()
+    sql = "SELECT films.*
+           FROM films
+           INNER JOIN screenings
+           ON screenings.film_id = films.id
+           INNER JOIN screens
+           ON screenings.screen_id = screens.id
+           WHERE screens.id = $1"
+    values = [@id]
+    result = SqlRunner.run(sql, values)
     Film.map_items(result)
+  end
+
+  def tickets()
+    sql = "SELECT tickets.*
+           FROM tickets
+           INNER JOIN screenings
+           ON tickets.screening_id = screenings.id
+           INNER JOIN screens
+           ON screenings.screen_id = screens.id
+           WHERE screens.id = $1"
+    values = [@id]
+    result = SqlRunner.run(sql, values)
+    Ticket.map_items(result)
+  end
+
+  def customers()
+    sql = "SELECT customers.*
+           FROM customers
+           INNER JOIN tickets
+           ON customers.id = tickets.customer_id
+           INNER JOIN screenings
+           ON tickets.screening_id = screenings.id
+           WHERE screen_id = $1"
+    values = [@id]
+    result = SqlRunner.run(sql, values)
+    Customer.map_items(result)
   end
 
   def self.create_a_screen(name, capacity)

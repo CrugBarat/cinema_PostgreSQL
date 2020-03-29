@@ -16,25 +16,25 @@ Screen.delete_all()
 
 customer1 = Customer.new({'first_name' => 'Charles',
                           'last_name' => 'Xavier',
-                          'funds' => 50.50,
+                          'funds' => 50.00,
                           'fav_genre' => 'Crime',
                           'age' => 60})
 
 customer2 = Customer.new({'first_name' => 'Jean',
                           'last_name' => 'Grey',
-                          'funds' => 25.25,
+                          'funds' => 50.00,
                           'fav_genre' => 'Animation',
                           'age' => 14})
 
 customer3 = Customer.new({'first_name' => 'Scott',
                           'last_name' => 'Summers',
-                          'funds' => 5.50,
+                          'funds' => 1.00,
                           'fav_genre' => 'Sci-Fi',
                           'age' => 21})
 
 customer4 = Customer.new({'first_name' => 'Ororo',
                           'last_name' => 'Munroe',
-                          'funds' => 43.75,
+                          'funds' => 50.00,
                           'fav_genre' => 'Fantasy',
                           'age' => 33})
 
@@ -68,12 +68,12 @@ screen3.save()
 
 film1 = Film.new({'title' => 'Pulp Fiction',
                   'genre' => 'Crime',
-                  'price' => 6.50,
+                  'price' => 7.50,
                   'rating' => 15})
 
 film2 = Film.new({'title' => 'Monsters Inc',
                   'genre' => 'Animation',
-                  'price' => 8.95,
+                  'price' => 9.00,
                   'rating' => 0})
 
 film3 = Film.new({'title' => 'The Conjuring',
@@ -83,7 +83,7 @@ film3 = Film.new({'title' => 'The Conjuring',
 
 film4 = Film.new({'title' => 'Frozen 2',
                   'genre' => 'Animation',
-                  'price' => 11.95,
+                  'price' => 11.00,
                   'rating' => 0})
 
 film1.save()
@@ -159,7 +159,7 @@ screening8.save()
 ticket1 = Ticket.new({'customer_id' => customer1.id,
                       'screening_id' => screening1.id()})
 
-ticket2 = Ticket.new({'customer_id' => customer3.id,
+ticket2 = Ticket.new({'customer_id' => customer4.id,
                       'screening_id' => screening2.id()})
 
 ticket3 = Ticket.new({'customer_id' => customer2.id,
@@ -174,7 +174,7 @@ ticket5 = Ticket.new({'customer_id' => customer1.id,
 ticket6 = Ticket.new({'customer_id' => customer2.id,
                       'screening_id' => screening4.id()})
 
-ticket7 = Ticket.new({'customer_id' => customer3.id,
+ticket7 = Ticket.new({'customer_id' => customer4.id,
                       'screening_id' => screening4.id()})
 
 ticket8 = Ticket.new({'customer_id' => customer4.id,
@@ -184,9 +184,9 @@ ticket9 = Ticket.new({'customer_id' => customer1.id,
                       'screening_id' => screening5.id()})
 
 ticket10 = Ticket.new({'customer_id' => customer2.id,
-                      'screening_id' => screening6.id()})
+                      'screening_id' => screening8.id()})
 
-ticket11 = Ticket.new({'customer_id' => customer3.id,
+ticket11 = Ticket.new({'customer_id' => customer1.id,
                       'screening_id' => screening6.id()})
 
 ticket12 = Ticket.new({'customer_id' => customer4.id,
