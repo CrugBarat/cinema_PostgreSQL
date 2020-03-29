@@ -139,7 +139,7 @@ class Screen
 
   def self.returning_single_screen(results)
     return nil if results.first() == nil
-    return Screen.new(results.first())
+    Screen.new(results.first())
   end
 
 end

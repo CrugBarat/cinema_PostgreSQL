@@ -66,6 +66,14 @@ class Screening
     self.map_items(results)
   end
 
+  def self.find_by_screen_id(screen_id)
+    sql = "SELECT * FROM screenings
+           WHERE screen_id = $1"
+    values = [screen_id]
+    results = SqlRunner.run(sql, values)
+    self.map_items(results)
+  end
+
   def self.find_by_start_time(start_time)
     sql = "SELECT * FROM screenings
            WHERE start_time = $1"
