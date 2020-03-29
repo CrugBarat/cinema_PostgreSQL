@@ -105,7 +105,16 @@ class Customer
   end
 
   def screens()
-
+    sql = "SELECT screens.*
+           FROM screens
+           INNER JOIN screenings
+           ON screenings.screen_id = screens.id
+           INNER JOIN tickets
+           ON tickets.screening_id = screenings.id
+           WHERE tickets.customer_id = $1"
+    values = [@id]
+    result = SqlRunner.run(sql, values)
+    Screen.map_items(result)
   end
 
   def tickets()
