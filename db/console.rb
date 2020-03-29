@@ -17,12 +17,14 @@ Screen.delete_all()
 customer1 = Customer.new({'first_name' => 'Charles',
                           'last_name' => 'Xavier',
                           'funds' => 35.50,
-                          'fav_genre' => 'Sci-Fi'})
+                          'fav_genre' => 'Sci-Fi',
+                          'age' => 60})
 
 customer2 = Customer.new({'first_name' => 'Jean',
                           'last_name' => 'Grey',
                           'funds' => 25.25,
-                          'fav_genre' => 'Animation'})
+                          'fav_genre' => 'Animation',
+                          'age' => 14})
 
 customer1.save()
 customer2.save()
@@ -44,16 +46,18 @@ screen2.save()
 ##################################################################
 #FILMS
 
+# Film Ratings Key(U = 0, PG = 10, 12 = 12, 15 = 15, 18 = 18)
+
 film1 = Film.new({'title' => 'Pulp Fiction',
                   'genre' => 'Crime',
                   'price' => 6.50,
-                  'rating' => '15',
+                  'rating' => 15,
                   'screen_id' => screen1.id()})
 
 film2 = Film.new({'title' => 'Monsters Inc',
                   'genre' => 'Animation',
                   'price' => 8.95,
-                  'rating' => 'U',
+                  'rating' => 0,
                   'screen_id' => screen2.id()})
 
 film1.save()
@@ -95,7 +99,7 @@ screening4.save()
 ticket1 = Ticket.new({'customer_id' => customer1.id,
                       'screening_id' => screening1.id()})
 
-ticket2 = Ticket.new({'customer_id' => customer2.id,
+ticket2 = Ticket.new({'customer_id' => customer1.id,
                       'screening_id' => screening2.id()})
 
 ticket3 = Ticket.new({'customer_id' => customer2.id,

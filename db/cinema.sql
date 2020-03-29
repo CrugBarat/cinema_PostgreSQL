@@ -9,7 +9,8 @@ CREATE TABLE customers (
   first_name VARCHAR(255),
   last_name VARCHAR(255),
   funds DECIMAL,
-  fav_genre VARCHAR(255)
+  fav_genre VARCHAR(255),
+  age INT
 );
 
 CREATE TABLE screens (
@@ -23,7 +24,7 @@ CREATE TABLE films (
   title VARCHAR(255),
   genre VARCHAR(255),
   price DECIMAL,
-  rating VARCHAR(255),
+  rating INT,
   screen_id INT REFERENCES screens(id) ON DELETE CASCADE
 );
 

@@ -3,7 +3,7 @@ require_relative('../db/sql_runner.rb')
 class Customer
 
   attr_reader :id
-  attr_accessor :first_name, :last_name, :funds, :fav_genre
+  attr_accessor :first_name, :last_name, :funds, :fav_genre, :age
 
   def initialize(options)
     @id = options['id'].to_i if options['id']
@@ -11,14 +11,15 @@ class Customer
     @last_name = options['last_name']
     @funds = options['funds']
     @fav_genre = options['fav_genre']
+    @age = options['age']
   end
 
   def save()
     sql = "INSERT INTO customers
-           (first_name, last_name, funds, fav_genre)
-           VALUES ($1, $2, $3, $4)
+           (first_name, last_name, funds, fav_genre, age)
+           VALUES ($1, $2, $3, $4, $5)
            RETURNING *"
-    values = [@first_name, @last_name, @funds, @fav_genre]
+    values = [@first_name, @last_name, @funds, @fav_genre, @age]
     @id = SqlRunner.run(sql, values)[0]['id'].to_i
   end
 
@@ -30,10 +31,10 @@ class Customer
 
   def update()
     sql = "UPDATE customers
-           SET (first_name, last_name, funds, fav_genre)
-           = ($1, $2, $3, $4)
-           WHERE id = $5"
-    values = [@first_name, @last_name, @funds, @fav_genre, @id]
+           SET (first_name, last_name, funds, fav_genre, age)
+           = ($1, $2, $3, $4, $5)
+           WHERE id = $6"
+    values = [@first_name, @last_name, @funds, @fav_genre, @age, @id]
     SqlRunner.run(sql, values)
   end
 
@@ -141,15 +142,6 @@ class Customer
     update()
   end
 
-  def self.create_a_customer(first_name, last_name, funds, fav_genre)
-    sql = "INSERT INTO customers
-           (first_name, last_name, funds, fav_genre)
-           VALUES ($1, $2, $3, $4)
-           RETURNING *"
-    values = [first_name, last_name, funds, fav_genre]
-    @id = SqlRunner.run(sql, values)[0]['id'].to_i
-  end
-
   def fav_genre_showing?()
     film_genres = films().map {|film| film.genre}
     film_genres.include?(@fav_genre)
@@ -157,6 +149,20 @@ class Customer
 
   def fav_genre_equals_film_genre?(film)
     @fav_genre != film.genre
+  end
+
+  # Film Ratings Key(U = 0, PG = 10, 12 = 12, 15 = 15, 18 = 18)
+  def is_old_enough?(film)
+    @age >= film.rating
+  end
+
+  def self.create_a_customer(first_name, last_name, funds, fav_genre, age)
+    sql = "INSERT INTO customers
+           (first_name, last_name, funds, fav_genre, age)
+           VALUES ($1, $2, $3, $4, $5)
+           RETURNING *"
+    values = [first_name, last_name, funds, fav_genre]
+    @id = SqlRunner.run(sql, values)[0]['id'].to_i
   end
 
   def self.map_items(result)
