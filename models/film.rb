@@ -100,6 +100,14 @@ class Film
     Customer.map_items(result)
   end
 
+  def tickets()
+
+  end
+
+  def screens()
+
+  end
+
   def screenings()
     sql = "SELECT * FROM screenings
            WHERE film_id = $1 "

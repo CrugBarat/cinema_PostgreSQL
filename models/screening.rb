@@ -104,6 +104,23 @@ class Screening
     Film.map_items(result)
   end
 
+  def screen()
+    sql = "SELECT screens.capacity, screens.name, screenings.id
+           FROM screens
+           INNER JOIN films
+           ON films.screen_id = screens.id
+           INNER JOIN screenings
+           ON screenings.film_id = films.id
+           WHERE screenings.id = $1"
+    values = [@id]
+    result = SqlRunner.run(sql, values)
+    Screen.map_items(result).first()
+  end
+
+  def customers()
+
+  end
+
   def tickets()
     sql = "SELECT * FROM tickets
            WHERE screening_id = $1 "
@@ -129,19 +146,6 @@ class Screening
 
   def self.most_tickets
     self.all().max_by {|screening| screening.number_of_tickets}
-  end
-
-  def screen()
-    sql = "SELECT screens.capacity, screens.name, screenings.id
-           FROM screens
-           INNER JOIN films
-           ON films.screen_id = screens.id
-           INNER JOIN screenings
-           ON screenings.film_id = films.id
-           WHERE screenings.id = $1"
-    values = [@id]
-    result = SqlRunner.run(sql, values)
-    Screen.map_items(result).first()
   end
 
   def capacity()

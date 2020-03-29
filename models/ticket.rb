@@ -1,6 +1,4 @@
 require_relative('../db/sql_runner.rb')
-require_relative('../models/customer.rb')
-require_relative('../models/film.rb')
 
 class Ticket
 
@@ -79,6 +77,32 @@ class Ticket
     values = [@customer_id]
     result = SqlRunner.run(sql, values).first
     return Customer.new(result)
+  end
+
+  def screen()
+    sql = "SELECT screens.*
+           FROM screens
+           INNER JOIN screenings
+           ON screenings.screen_id = screens.id
+           INNER JOIN tickets
+           ON tickets.screening_id = screenings.id
+           WHERE tickets.id = $1"
+    values = [@id]
+    result = SqlRunner.run(sql, values)
+    Screen.map_items(result).first()
+  end
+
+  def film()
+    sql = "SELECT films.*
+           FROM films
+           INNER JOIN screenings
+           ON screenings.film_id = films.id
+           INNER JOIN tickets
+           ON tickets.screening_id = screenings.id
+           WHERE tickets.id = $1"
+    values = [@id]
+    result = SqlRunner.run(sql, values)
+    Film.map_items(result).first()
   end
 
   def self.create_a_ticket(customer_id, screening_id)

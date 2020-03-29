@@ -104,6 +104,10 @@ class Customer
     Screening.map_items(result)
   end
 
+  def screens()
+
+  end
+
   def tickets()
     sql = "SELECT * FROM tickets
            WHERE customer_id = $1 "
