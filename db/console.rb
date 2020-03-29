@@ -16,7 +16,7 @@ Screen.delete_all()
 
 customer1 = Customer.new({'first_name' => 'Charles',
                           'last_name' => 'Xavier',
-                          'funds' => 35.50,
+                          'funds' => 50.50,
                           'fav_genre' => 'Sci-Fi',
                           'age' => 60})
 
@@ -51,14 +51,12 @@ screen2.save()
 film1 = Film.new({'title' => 'Pulp Fiction',
                   'genre' => 'Crime',
                   'price' => 6.50,
-                  'rating' => 15,
-                  'screen_id' => screen1.id()})
+                  'rating' => 15})
 
 film2 = Film.new({'title' => 'Monsters Inc',
                   'genre' => 'Animation',
                   'price' => 8.95,
-                  'rating' => 0,
-                  'screen_id' => screen2.id()})
+                  'rating' => 0})
 
 film1.save()
 film2.save()
@@ -70,22 +68,26 @@ film2.save()
 screening1 = Screening.new({'start_time' => '21:00:00',
                             'end_time' => '00:30:00',
                             'film_id' => film1.id,
-                            'number_of_tickets' => 0})
+                            'number_of_tickets' => 0,
+                            'screen_id' => screen1.id()})
 
 screening2 = Screening.new({'start_time' => '01:00:00',
                             'end_time' => '03:30:00',
                             'film_id' => film1.id,
-                            'number_of_tickets' => 0})
+                            'number_of_tickets' => 0,
+                            'screen_id' => screen1.id()})
 
 screening3 = Screening.new({'start_time' => '12:00:00',
                             'end_time' => '14:00:00',
                             'film_id' => film2.id,
-                            'number_of_tickets' => 0})
+                            'number_of_tickets' => 0,
+                            'screen_id' => screen2.id()})
 
 screening4 = Screening.new({'start_time' => '14:30:00',
                             'end_time' => '16:30:00',
                             'film_id' => film2.id,
-                            'number_of_tickets' => 0})
+                            'number_of_tickets' => 0,
+                            'screen_id' => screen2.id()})
 
 screening1.save()
 screening2.save()

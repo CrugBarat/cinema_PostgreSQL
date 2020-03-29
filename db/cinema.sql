@@ -24,8 +24,7 @@ CREATE TABLE films (
   title VARCHAR(255),
   genre VARCHAR(255),
   price DECIMAL,
-  rating INT,
-  screen_id INT REFERENCES screens(id) ON DELETE CASCADE
+  rating INT
 );
 
 CREATE TABLE screenings (
@@ -33,7 +32,8 @@ CREATE TABLE screenings (
   start_time TIME(0),
   end_time TIME(0),
   film_id INT REFERENCES films(id) ON DELETE CASCADE,
-  number_of_tickets INT
+  number_of_tickets INT,
+  screen_id INT REFERENCES screens(id) ON DELETE CASCADE
 );
 
 CREATE TABLE tickets (

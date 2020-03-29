@@ -3,7 +3,7 @@ require_relative('../db/sql_runner.rb')
 class Film
 
   attr_reader :id
-  attr_accessor :title, :genre, :price, :rating, :screen_id
+  attr_accessor :title, :genre, :price, :rating
 
   def initialize(options)
     @id = options['id'].to_i if options['id']
@@ -11,15 +11,14 @@ class Film
     @genre = options['genre']
     @price = options['price']
     @rating = options['rating']
-    @screen_id = options['screen_id'].to_i
   end
 
   def save()
     sql = "INSERT INTO films
-           (title, genre, price, rating, screen_id)
-           VALUES ($1, $2, $3, $4, $5)
+           (title, genre, price, rating)
+           VALUES ($1, $2, $3, $4)
            RETURNING *"
-    values = [@title, @genre, @price, @rating, @screen_id]
+    values = [@title, @genre, @price, @rating]
     @id = SqlRunner.run(sql, values)[0]['id'].to_i
   end
 
@@ -31,10 +30,10 @@ class Film
 
   def update()
     sql = "UPDATE films SET
-           (title, genre, price, rating, screen_id)
-           = ($1, $2, $3, $4, $5)
-           WHERE id = $6"
-    values = [@title, @genre, @price, @rating, @screen_id, @id]
+           (title, genre, price, rating)
+           = ($1, $2, $3, $4)
+           WHERE id = $5"
+    values = [@title, @genre, @price, @rating, @id]
     SqlRunner.run(sql, values)
   end
 
@@ -113,12 +112,12 @@ class Film
     customers().size()
   end
 
-  def self.create_a_film(title, genre, price, rating, screen_id)
+  def self.create_a_film(title, genre, price, rating)
     sql = "INSERT INTO films
-           (title, genre, price, rating, screen_id)
+           (title, genre, price, rating)
            VALUES ($1, $2, $3, $4)
            RETURNING *"
-    values = [title, genre, price, rating, screen_id]
+    values = [title, genre, price, rating]
     @id = SqlRunner.run(sql, values)[0]['id'].to_i
   end
 

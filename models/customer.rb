@@ -151,7 +151,7 @@ class Customer
     @fav_genre != film.genre
   end
 
-  # Film Ratings Key(U = 0, PG = 10, 12 = 12, 15 = 15, 18 = 18)
+  # Film Ratings Key: (U = 0, PG = 10, 12 = 12, 15 = 15, 18 = 18)
   def is_old_enough?(film)
     @age >= film.rating
   end
@@ -161,7 +161,7 @@ class Customer
            (first_name, last_name, funds, fav_genre, age)
            VALUES ($1, $2, $3, $4, $5)
            RETURNING *"
-    values = [first_name, last_name, funds, fav_genre]
+    values = [first_name, last_name, funds, fav_genre, age]
     @id = SqlRunner.run(sql, values)[0]['id'].to_i
   end
 

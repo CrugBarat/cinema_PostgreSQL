@@ -3,7 +3,7 @@ require_relative('../db/sql_runner.rb')
 class Screening
 
   attr_reader :id
-  attr_accessor :start_time, :end_time, :film_id, :number_of_tickets
+  attr_accessor :start_time, :end_time, :film_id, :number_of_tickets, :screen_id
 
   def initialize(options)
     @id = options['id'].to_i if options['id']
@@ -11,14 +11,15 @@ class Screening
     @end_time = options['end_time']
     @film_id = options['film_id'].to_i
     @number_of_tickets = options['number_of_tickets']
+    @screen_id = options['screen_id'].to_i
   end
 
   def save()
     sql = "INSERT INTO screenings
-           (start_time, end_time, film_id)
-           VALUES ($1, $2, $3)
+           (start_time, end_time, film_id, number_of_tickets, screen_id)
+           VALUES ($1, $2, $3, $4, $5)
            RETURNING *"
-    values = [@start_time, @end_time, @film_id]
+    values = [@start_time, @end_time, @film_id, @number_of_tickets, @screen_id]
     @id = SqlRunner.run(sql, values)[0]['id'].to_i
   end
 
@@ -30,10 +31,10 @@ class Screening
 
   def update()
     sql = "UPDATE screenings
-           SET (start_time, end_time, film_id, number_of_tickets)
-           = ($1, $2, $3, $4)
-           WHERE id = $5"
-    values = [@start_time, @end_time, @film_id, @number_of_tickets, @id]
+           SET (start_time, end_time, film_id, number_of_tickets, screen_id)
+           = ($1, $2, $3, $4, $5)
+           WHERE id = $6"
+    values = [@start_time, @end_time, @film_id, @number_of_tickets, @screen_id, @id]
     SqlRunner.run(sql, values)
   end
 
@@ -100,7 +101,7 @@ class Screening
            WHERE id = $1"
     values = [@film_id]
     result = SqlRunner.run(sql, values)
-    Screening.map_items(result)
+    Film.map_items(result)
   end
 
   def tickets()
@@ -151,12 +152,12 @@ class Screening
     capacity() <= number_of_tickets()
   end
 
-  def self.create_a_screening(start_time, end_time, film_id)
+  def self.create_a_screening(start_time, end_time, film_id, screen_id)
     sql = "INSERT INTO screening
-           (start_time, end_time, film_id)
-           VALUES ($1, $2, $3)
+           (start_time, end_time, film_id, screen_id)
+           VALUES ($1, $2, $3, $4)
            RETURNING *"
-    values = [start_time, end_time, film_id]
+    values = [start_time, end_time, film_id, screen_id]
     @id = SqlRunner.run(sql, values)[0]['id'].to_i
   end
 
