@@ -7,10 +7,8 @@ Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 class TestScreen < MiniTest::Test
 
   def setup()
-
     @screen1 = Screen.new({'name' => 'Screen 3',
                            'capacity' => 18})
-
   end
 
   def test_get_name()

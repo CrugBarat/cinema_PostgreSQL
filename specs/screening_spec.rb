@@ -7,7 +7,6 @@ Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 class TestScreening < MiniTest::Test
 
   def setup()
-
     @screening1 = Screening.new({'start_time' => '22:00:00',
                                 'end_time' => '00:30:00',
                                 'film_id' => 2,

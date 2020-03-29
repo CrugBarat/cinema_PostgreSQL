@@ -8,7 +8,6 @@ Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 class TestCustomer < MiniTest::Test
 
   def setup()
-    
     @customer1 = Customer.new({'first_name' => 'John',
                                'last_name' =>'Doe',
                                'funds' => 45.00,

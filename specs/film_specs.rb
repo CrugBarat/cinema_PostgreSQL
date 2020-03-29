@@ -7,7 +7,6 @@ Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 class TestFilm < MiniTest::Test
 
   def setup()
-
     @film1 = Film.new({'title' => 'Frozen',
                        'genre' => 'Animation',
                        'price' => 5.50,
