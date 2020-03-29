@@ -53,8 +53,12 @@ screen1 = Screen.new({'name' => 'Screen 1',
 screen2 = Screen.new({'name' => 'Screen 2',
                       'capacity' => 5})
 
+screen3 = Screen.new({'name' => 'Screen 2',
+                      'capacity' => 50})
+
 screen1.save()
 screen2.save()
+screen3.save()
 
 
 ##################################################################
@@ -72,8 +76,20 @@ film2 = Film.new({'title' => 'Monsters Inc',
                   'price' => 8.95,
                   'rating' => 0})
 
+film3 = Film.new({'title' => 'The Conjuring',
+                  'genre' => 'Horror',
+                  'price' => 7.50,
+                  'rating' => 18})
+
+film4 = Film.new({'title' => 'Frozen 2',
+                  'genre' => 'Animation',
+                  'price' => 11.95,
+                  'rating' => 0})
+
 film1.save()
 film2.save()
+film3.save()
+film4.save()
 
 
 ##################################################################
@@ -103,10 +119,38 @@ screening4 = Screening.new({'start_time' => '14:30:00',
                             'number_of_tickets' => 0,
                             'screen_id' => screen2.id()})
 
+screening5 = Screening.new({'start_time' => '20:00:00',
+                            'end_time' => '22:15:00',
+                            'film_id' => film3.id,
+                            'number_of_tickets' => 0,
+                            'screen_id' => screen3.id()})
+
+screening6 = Screening.new({'start_time' => '22:45:00',
+                            'end_time' => '01:00:00',
+                            'film_id' => film3.id,
+                            'number_of_tickets' => 0,
+                            'screen_id' => screen3.id()})
+
+screening7 = Screening.new({'start_time' => '13:00:00',
+                            'end_time' => '15:00:00',
+                            'film_id' => film4.id,
+                            'number_of_tickets' => 0,
+                            'screen_id' => screen3.id()})
+
+screening8 = Screening.new({'start_time' => '15:30:00',
+                            'end_time' => '17:30:00',
+                            'film_id' => film4.id,
+                            'number_of_tickets' => 0,
+                            'screen_id' => screen3.id()})
+
 screening1.save()
 screening2.save()
 screening3.save()
 screening4.save()
+screening5.save()
+screening6.save()
+screening7.save()
+screening8.save()
 
 
 ##################################################################
