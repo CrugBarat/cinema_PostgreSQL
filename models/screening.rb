@@ -101,7 +101,7 @@ class Screening
            WHERE id = $1"
     values = [@film_id]
     result = SqlRunner.run(sql, values).first
-    return Film.new(result)
+    Film.new(result)
   end
 
   def screen()
@@ -109,7 +109,7 @@ class Screening
            WHERE id = $1"
     values = [@screen_id]
     result = SqlRunner.run(sql, values).first
-    return Screen.new(result)
+    Screen.new(result)
   end
 
   def customers()
@@ -182,7 +182,7 @@ class Screening
 
   def self.returning_single_screening(results)
     return nil if results.first() == nil
-    return Screening.new(results.first())
+    Screening.new(results.first())
   end
 
 end

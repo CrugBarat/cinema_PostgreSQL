@@ -89,7 +89,8 @@ class Film
   end
 
   def customers()
-    sql = "SELECT customers.* FROM customers
+    sql = "SELECT customers.*
+           FROM customers
            INNER JOIN tickets
            ON tickets.customer_id = customers.id
            INNER JOIN screenings
@@ -101,11 +102,29 @@ class Film
   end
 
   def tickets()
-
+    sql = "SELECT tickets.*
+           FROM tickets
+           INNER JOIN screenings
+           ON tickets.screening_id = screenings.id
+           INNER JOIN films
+           ON screenings.film_id = films.id
+           WHERE films.id = $1"
+    values = [@id]
+    result = SqlRunner.run(sql, values)
+    Ticket.map_items(result)
   end
 
   def screens()
-
+    sql = "SELECT screens.*
+           FROM screens
+           INNER JOIN screenings
+           ON screenings.screen_id = screens.id
+           INNER JOIN films
+           ON screenings.film_id = films.id
+           WHERE films.id = $1"
+    values = [@id]
+    result = SqlRunner.run(sql, values)
+    Screen.map_items(result)
   end
 
   def screenings()
@@ -135,7 +154,7 @@ class Film
 
   def self.returning_single_film(results)
     return nil if results.first() == nil
-    return Film.new(results.first())
+    Film.new(results.first())
   end
 
 end

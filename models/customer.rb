@@ -184,7 +184,7 @@ class Customer
 
   def self.returning_single_customer(results)
     return nil if results.first() == nil
-    return Customer.new(results.first())
+    Customer.new(results.first())
   end
 
 end

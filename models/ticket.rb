@@ -68,7 +68,7 @@ class Ticket
            WHERE id = $1"
     values = [@screening_id]
     result = SqlRunner.run(sql, values).first
-    return Screening.new(result)
+    Screening.new(result)
   end
 
   def customer()
@@ -76,7 +76,7 @@ class Ticket
            WHERE id = $1"
     values = [@customer_id]
     result = SqlRunner.run(sql, values).first
-    return Customer.new(result)
+    Customer.new(result)
   end
 
   def screen()
@@ -150,7 +150,7 @@ class Ticket
 
   def self.returning_single_ticket(results)
     return nil if results.first() == nil
-    return Ticket.new(results.first())
+    Ticket.new(results.first())
   end
 
 end
