@@ -177,13 +177,6 @@ class Screening
     @id = SqlRunner.run(sql, values)[0]['id'].to_i
   end
 
-  def self.all_ascending_by_number_of_tickets()
-    sql = "SELECT * FROM screenings
-           ORDER BY number_of_tickets"
-    result = SqlRunner.run(sql)
-    self.map_items(result)
-  end
-
   def self.map_items(result)
     result.map{|screening| Screening.new(screening)}
   end

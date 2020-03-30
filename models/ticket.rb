@@ -131,6 +131,7 @@ class Ticket
     self.create_a_ticket(customer.id, screening.id)
     customer.new_ticket_funds_update(film)
     screening.number_of_tickets_new_ticket_update()
+    screening.number_of_tickets_new_ticket_update()
   end
 
   def self.sell_fav_genre_promotion(customer, film, screening)
