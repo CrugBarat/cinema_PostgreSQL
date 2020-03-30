@@ -139,13 +139,12 @@ class Film
     tickets().size()
   end
 
-  def self.create_a_film(title, genre, price, rating)
-    sql = "INSERT INTO films
-           (title, genre, price, rating)
-           VALUES ($1, $2, $3, $4)
-           RETURNING *"
-    values = [title, genre, price, rating]
-    @id = SqlRunner.run(sql, values)[0]['id'].to_i
+  def self.new_film(title, genre, price, rating)
+    film = Film.new({'title' => title,
+                     'genre' => genre,
+                     'price' => price,
+                     'rating' => rating})
+    film.save()
   end
 
   def self.map_items(result)

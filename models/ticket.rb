@@ -105,33 +105,30 @@ class Ticket
     Film.map_items(result).first()
   end
 
-  def self.create_a_ticket(customer_id, screening_id)
-    sql = "INSERT INTO tickets
-           (customer_id, screening_id)
-           VALUES ($1, $2)
-           RETURNING *"
-    values = [customer_id, screening_id]
-    @id = SqlRunner.run(sql, values)[0]['id'].to_i
+  def self.new_ticket(customer_id, screening_id)
+    ticket = Ticket.new({'customer_id' => customer_id,
+                         'screening_id' => screening_id})
+    ticket.save()
   end
 
   def self.sell(customer, film, screening)
     return if screening.over_capacity?()
     return if !customer.has_funds?(film)
     return if !customer.is_old_enough?(film)
-    self.create_a_ticket(customer.id, screening.id)
-    customer.new_ticket_funds_update(film)
-    screening.number_of_tickets_new_ticket_update()
+    self.new_ticket(customer.id, screening.id)
+    customer.pay(film)
+    screening.update_new_tickets()
   end
 
   def self.sell_meerkat_tuesdays_bogof(customer, film, screening)
     return if screening.over_capacity?()
     return if !customer.has_funds?(film)
     return if !customer.is_old_enough?(film)
-    self.create_a_ticket(customer.id, screening.id)
-    self.create_a_ticket(customer.id, screening.id)
-    customer.new_ticket_funds_update(film)
-    screening.number_of_tickets_new_ticket_update()
-    screening.number_of_tickets_new_ticket_update()
+    self.new_ticket(customer.id, screening.id)
+    self.new_ticket(customer.id, screening.id)
+    customer.pay(film)
+    screening.update_new_tickets()
+    screening.update_new_tickets()
   end
 
   def self.sell_fav_genre_promotion(customer, film, screening)
@@ -140,9 +137,9 @@ class Ticket
     return if !customer.is_old_enough?(film)
     return if !customer.fav_genre_showing?()
     return if customer.fav_genre_equals_film_genre?(film)
-    self.create_a_ticket(customer.id, screening.id)
-    customer.new_ticket_funds_update_fav_genre_discount(film)
-    screening.number_of_tickets_new_ticket_update()
+    self.new_ticket(customer.id, screening.id)
+    customer.pay_discount(film)
+    screening.update_new_tickets()
   end
 
   def self.map_items(result)

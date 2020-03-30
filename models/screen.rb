@@ -129,12 +129,10 @@ class Screen
     tickets().size()
   end
 
-  def self.create_a_screen(name, capacity)
-    sql = "INSERT INTO screens (name, capacity)
-           VALUES ($1, $2)
-           RETURNING *"
-    values = [name, capacity]
-    @id = SqlRunner.run(sql, values)[0]['id'].to_i
+  def self.new_screen(name, capacity)
+    screen = Screen.new({'name' => name,
+                         'capacity' => capacity})
+    screen.save()
   end
 
   def self.map_items(result)

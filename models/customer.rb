@@ -142,13 +142,13 @@ class Customer
     @funds > film.price
   end
 
-  def new_ticket_funds_update(film)
+  def pay(film)
     result = @funds - film.price
     @funds = result.round(2)
     update()
   end
 
-  def new_ticket_funds_update_fav_genre_discount(film)
+  def pay_discount(film)
     discount = film.price * 0.8
     result = @funds - discount
     @funds = result.round(2)
@@ -169,13 +169,13 @@ class Customer
     @age >= film.rating
   end
 
-  def self.create_a_customer(first_name, last_name, funds, fav_genre, age)
-    sql = "INSERT INTO customers
-           (first_name, last_name, funds, fav_genre, age)
-           VALUES ($1, $2, $3, $4, $5)
-           RETURNING *"
-    values = [first_name, last_name, funds, fav_genre, age]
-    @id = SqlRunner.run(sql, values)[0]['id'].to_i
+  def self.new_customer(first_name, last_name, funds, fav_genre, age)
+    customer = Customer.new({'first_name' => first_name,
+                             'last_name' => last_name,
+                             'funds' => funds,
+                             'fav_genre' => fav_genre,
+                             'age' => age})
+    customer.save()
   end
 
   def self.map_items(result)

@@ -150,7 +150,7 @@ class Screening
     update()
   end
 
-  def number_of_tickets_new_ticket_update()
+  def update_new_tickets()
     result = @number_of_tickets + 1
     @number_of_tickets = result
     update()
@@ -168,13 +168,13 @@ class Screening
     capacity() <= number_of_tickets()
   end
 
-  def self.create_a_screening(start_time, end_time, film_id, screen_id)
-    sql = "INSERT INTO screenings
-           (start_time, end_time, film_id, screen_id)
-           VALUES ($1, $2, $3, $4)
-           RETURNING *"
-    values = [start_time, end_time, film_id, screen_id]
-    @id = SqlRunner.run(sql, values)[0]['id'].to_i
+  def self.new_screening(start_time, end_time, film_id, number_of_tickets, screen_id)
+    screening = Screening.new({'start_time' => start_time,
+                               'end_time' => end_time,
+                               'film_id' => film_id,
+                               'number_of_tickets' => number_of_tickets,
+                               'screen_id' => screen_id})
+    screening.save()
   end
 
   def self.map_items(result)
