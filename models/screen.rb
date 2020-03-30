@@ -99,6 +99,19 @@ class Screen
     Film.map_items(result)
   end
 
+  def customers()
+    sql = "SELECT customers.*
+           FROM customers
+           INNER JOIN tickets
+           ON customers.id = tickets.customer_id
+           INNER JOIN screenings
+           ON tickets.screening_id = screenings.id
+           WHERE screen_id = $1"
+    values = [@id]
+    result = SqlRunner.run(sql, values)
+    Customer.map_items(result)
+  end
+
   def tickets()
     sql = "SELECT tickets.*
            FROM tickets
@@ -112,17 +125,8 @@ class Screen
     Ticket.map_items(result)
   end
 
-  def customers()
-    sql = "SELECT customers.*
-           FROM customers
-           INNER JOIN tickets
-           ON customers.id = tickets.customer_id
-           INNER JOIN screenings
-           ON tickets.screening_id = screenings.id
-           WHERE screen_id = $1"
-    values = [@id]
-    result = SqlRunner.run(sql, values)
-    Customer.map_items(result)
+  def number_of_tickets()
+    tickets().size()
   end
 
   def self.create_a_screen(name, capacity)

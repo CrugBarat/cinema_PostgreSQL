@@ -101,19 +101,6 @@ class Film
     Customer.map_items(result)
   end
 
-  def tickets()
-    sql = "SELECT tickets.*
-           FROM tickets
-           INNER JOIN screenings
-           ON tickets.screening_id = screenings.id
-           INNER JOIN films
-           ON screenings.film_id = films.id
-           WHERE films.id = $1"
-    values = [@id]
-    result = SqlRunner.run(sql, values)
-    Ticket.map_items(result)
-  end
-
   def screens()
     sql = "SELECT screens.*
            FROM screens
@@ -135,8 +122,21 @@ class Film
     Screening.map_items(result)
   end
 
-  def number_of_customers()
-    customers().size()
+  def tickets()
+    sql = "SELECT tickets.*
+           FROM tickets
+           INNER JOIN screenings
+           ON tickets.screening_id = screenings.id
+           INNER JOIN films
+           ON screenings.film_id = films.id
+           WHERE films.id = $1"
+    values = [@id]
+    result = SqlRunner.run(sql, values)
+    Ticket.map_items(result)
+  end
+
+  def number_of_tickets()
+    tickets().size()
   end
 
   def self.create_a_film(title, genre, price, rating)
