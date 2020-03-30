@@ -169,7 +169,7 @@ class Screening
   end
 
   def self.create_a_screening(start_time, end_time, film_id, screen_id)
-    sql = "INSERT INTO screening
+    sql = "INSERT INTO screenings
            (start_time, end_time, film_id, screen_id)
            VALUES ($1, $2, $3, $4)
            RETURNING *"
