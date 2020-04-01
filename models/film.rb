@@ -9,8 +9,8 @@ class Film
     @id = options['id'].to_i if options['id']
     @title = options['title']
     @genre = options['genre']
-    @price = options['price']
-    @rating = options['rating']
+    @price = options['price'].to_f
+    @rating = options['rating'].to_i
   end
 
   def save()

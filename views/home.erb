@@ -1,0 +1,16 @@
+<p>Welcome to The Cinema</p>
+
+<a href="/home/book">
+<button type="button" name="button">BOOK</button>
+</a>
+<hr>
+<p>SHOWTIMES:</p>
+<% for film in @films_data %>
+  <hr>
+  <p>Film: <%=film.title()%></p>
+  <p>Start Time: <%=film.start_time()%></p>
+  <p>End Time: <%=film.end_time()%></p>
+  <p>Genre: <%=film.genre()%></p>
+  <p>Price: £<%=film.price()%></p>
+  <hr>
+<%end%>

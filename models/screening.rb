@@ -10,7 +10,7 @@ class Screening
     @start_time = options['start_time']
     @end_time = options['end_time']
     @film_id = options['film_id'].to_i
-    @number_of_tickets = options['number_of_tickets']
+    @number_of_tickets = options['number_of_tickets'].to_i
     @screen_id = options['screen_id'].to_i
   end
 
@@ -165,7 +165,7 @@ class Screening
   end
 
   def over_capacity?()
-    capacity() <= number_of_tickets()
+    capacity() <= @number_of_tickets
   end
 
   def self.new_screening(start_time, end_time, film_id, number_of_tickets, screen_id)

@@ -9,9 +9,9 @@ class Customer
     @id = options['id'].to_i if options['id']
     @first_name = options['first_name']
     @last_name = options['last_name']
-    @funds = options['funds']
+    @funds = options['funds'].to_f
     @fav_genre = options['fav_genre']
-    @age = options['age']
+    @age = options['age'].to_i
   end
 
   def save()
@@ -176,6 +176,10 @@ class Customer
                              'fav_genre' => fav_genre,
                              'age' => age})
     customer.save()
+  end
+
+  def full_name()
+    return "#{@first_name} #{@last_name}"
   end
 
   def self.map_items(result)

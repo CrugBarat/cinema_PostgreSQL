@@ -111,7 +111,10 @@ class Ticket
     ticket.save()
   end
 
-  def self.sell(customer, film, screening)
+  def self.sell(customer_id, film_id, screening_id)
+    customer = Customer.find_by_id(customer_id)
+    film = Film.find_by_id(film_id)
+    screening = Screening.find_by_id(screening_id)
     return if screening.over_capacity?()
     return if !customer.has_funds?(film)
     return if !customer.is_old_enough?(film)

@@ -4,6 +4,7 @@ require_relative('../models/film.rb')
 require_relative('../models/ticket.rb')
 require_relative('../models/screening.rb')
 require_relative('../models/screen.rb')
+require_relative('../models/app_data.rb')
 
 Ticket.delete_all()
 Customer.delete_all()
@@ -101,7 +102,7 @@ screening1 = Screening.new({'start_time' => '21:00:00',
                             'number_of_tickets' => 0,
                             'screen_id' => screen1.id()})
 
-screening2 = Screening.new({'start_time' => '01:00:00',
+screening2 = Screening.new({'start_time' => '23:45:00',
                             'end_time' => '03:30:00',
                             'film_id' => film1.id,
                             'number_of_tickets' => 0,
@@ -221,6 +222,18 @@ screening5.update_tickets_sold()
 screening6.update_tickets_sold()
 screening7.update_tickets_sold()
 screening8.update_tickets_sold()
+
+
+##################################################################
+#APP DATA
+
+appdata = AppData.new({'title' => '',
+                        'start_time' => '',
+                        'end_time' => '',
+                        'genre' => '',
+                        'price' => 0,
+                        'screening_id' => screening1.id,
+                        'film_id' => film1.id})
 
 
 ##################################################################

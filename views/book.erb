@@ -1,0 +1,38 @@
+<form action="/home" method="POST">
+<label for="customer">Customer:</label>
+<select id="customer" name="customer_id">
+  <% for customer in @customers %>
+    <option value="<%= customer.id %>">
+        <%=  customer.full_name() %>
+    </option>
+  <% end %>
+</select>
+<select id="film" name="film_id">
+  <% for film in @films %>
+    <option value="<%= film.id %>">
+        <%=  film.title() %>
+    </option>
+  <% end %>
+</select>
+<select id="screenings" name="screening_id">
+  <% for screenings in @screenings %>
+    <option value="<%= screenings.id %>">
+        <%=  screenings.start_time() %>
+    </option>
+  <% end %>
+</select>
+
+<!--
+ <label for="film-select">Select a pizza:</label>
+    <select id="pizza-select" name="topping">
+      <option value="Margherita">Margherita</option>
+      <option value="Calzone">Calzone</option>
+    </select>
+
+
+  <label for="quantity">Quantity:</label>
+    <input id="quantity" type="number" name="quantity" required/> -->
+
+
+  <input type='submit' value="BOOK"/>
+</form>
