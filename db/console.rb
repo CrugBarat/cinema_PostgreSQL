@@ -4,7 +4,6 @@ require_relative('../models/film.rb')
 require_relative('../models/ticket.rb')
 require_relative('../models/screening.rb')
 require_relative('../models/screen.rb')
-require_relative('../models/app_data.rb')
 
 Ticket.delete_all()
 Customer.delete_all()
@@ -68,24 +67,28 @@ screen3.save()
 # Film Ratings Key(U = 0, PG = 10, 12 = 12, 15 = 15, 18 = 18)
 
 film1 = Film.new({'title' => 'Pulp Fiction',
+                  'genre' => 'Comedy/Crime',
+                  'price' => 7.50,
+                  'rating' => 18,
+                  'rating_logo' => '/18.png'})
+
+film2 = Film.new({'title' => 'Jackie Brown',
+                  'genre' => 'Crime/Drama',
+                  'price' => 7.50,
+                  'rating' => 18,
+                  'rating_logo' => '/18.png'})
+
+film3 = Film.new({'title' => 'Reservoir Dogs',
                   'genre' => 'Crime',
                   'price' => 7.50,
-                  'rating' => 15})
+                  'rating' => 18,
+                  'rating_logo' => '/18.png'})
 
-film2 = Film.new({'title' => 'Monsters Inc',
-                  'genre' => 'Animation',
-                  'price' => 9.00,
-                  'rating' => 0})
-
-film3 = Film.new({'title' => 'The Conjuring',
-                  'genre' => 'Horror',
-                  'price' => 7.50,
-                  'rating' => 18})
-
-film4 = Film.new({'title' => 'Frozen 2',
-                  'genre' => 'Animation',
-                  'price' => 11.00,
-                  'rating' => 0})
+film4 = Film.new({'title' => 'Once Upon a Time in Hollywood',
+                  'genre' => 'Drama',
+                  'price' => 9.50,
+                  'rating' => 18,
+                  'rating_logo' => '/18.png'})
 
 film1.save()
 film2.save()
@@ -96,50 +99,50 @@ film4.save()
 ##################################################################
 # SCREENINGS
 
-screening1 = Screening.new({'start_time' => '21:00:00',
-                            'end_time' => '00:30:00',
+screening1 = Screening.new({'start_time' => '16:00:00',
+                            'end_time' => '18:30:00',
                             'film_id' => film1.id,
                             'number_of_tickets' => 0,
                             'screen_id' => screen1.id()})
 
-screening2 = Screening.new({'start_time' => '23:45:00',
-                            'end_time' => '03:30:00',
+screening2 = Screening.new({'start_time' => '20:30:00',
+                            'end_time' => '23:05:00',
                             'film_id' => film1.id,
                             'number_of_tickets' => 0,
                             'screen_id' => screen1.id()})
 
-screening3 = Screening.new({'start_time' => '12:00:00',
-                            'end_time' => '14:00:00',
+screening3 = Screening.new({'start_time' => '17:00:00',
+                            'end_time' => '19:15:00',
                             'film_id' => film2.id,
                             'number_of_tickets' => 0,
                             'screen_id' => screen2.id()})
 
-screening4 = Screening.new({'start_time' => '14:30:00',
-                            'end_time' => '16:30:00',
+screening4 = Screening.new({'start_time' => '20:45:00',
+                            'end_time' => '23:00:00',
                             'film_id' => film2.id,
                             'number_of_tickets' => 0,
                             'screen_id' => screen2.id()})
 
-screening5 = Screening.new({'start_time' => '20:00:00',
-                            'end_time' => '22:15:00',
+screening5 = Screening.new({'start_time' => '18:30:00',
+                            'end_time' => '20:15:00',
                             'film_id' => film3.id,
                             'number_of_tickets' => 0,
                             'screen_id' => screen3.id()})
 
-screening6 = Screening.new({'start_time' => '22:45:00',
-                            'end_time' => '01:00:00',
+screening6 = Screening.new({'start_time' => '22:35:00',
+                            'end_time' => '23:55:00',
                             'film_id' => film3.id,
                             'number_of_tickets' => 0,
                             'screen_id' => screen3.id()})
 
-screening7 = Screening.new({'start_time' => '13:00:00',
-                            'end_time' => '15:00:00',
+screening7 = Screening.new({'start_time' => '20:20:00',
+                            'end_time' => '22:30:00',
                             'film_id' => film4.id,
                             'number_of_tickets' => 0,
                             'screen_id' => screen3.id()})
 
-screening8 = Screening.new({'start_time' => '15:30:00',
-                            'end_time' => '17:30:00',
+screening8 = Screening.new({'start_time' => '22:45:00',
+                            'end_time' => '23:55:00',
                             'film_id' => film4.id,
                             'number_of_tickets' => 0,
                             'screen_id' => screen3.id()})
@@ -222,18 +225,6 @@ screening5.update_tickets_sold()
 screening6.update_tickets_sold()
 screening7.update_tickets_sold()
 screening8.update_tickets_sold()
-
-
-##################################################################
-#APP DATA
-
-appdata = AppData.new({'title' => '',
-                        'start_time' => '',
-                        'end_time' => '',
-                        'genre' => '',
-                        'price' => 0,
-                        'screening_id' => screening1.id,
-                        'film_id' => film1.id})
 
 
 ##################################################################

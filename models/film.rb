@@ -3,7 +3,7 @@ require_relative('../db/sql_runner.rb')
 class Film
 
   attr_reader :id
-  attr_accessor :title, :genre, :price, :rating
+  attr_accessor :title, :genre, :price, :rating, :rating_logo
 
   def initialize(options)
     @id = options['id'].to_i if options['id']
@@ -11,14 +11,15 @@ class Film
     @genre = options['genre']
     @price = options['price'].to_f
     @rating = options['rating'].to_i
+    @rating_logo = options['rating_logo']
   end
 
   def save()
     sql = "INSERT INTO films
-           (title, genre, price, rating)
-           VALUES ($1, $2, $3, $4)
+           (title, genre, price, rating, rating_logo)
+           VALUES ($1, $2, $3, $4, $5)
            RETURNING *"
-    values = [@title, @genre, @price, @rating]
+    values = [@title, @genre, @price, @rating, @rating_logo]
     @id = SqlRunner.run(sql, values)[0]['id'].to_i
   end
 
@@ -30,10 +31,10 @@ class Film
 
   def update()
     sql = "UPDATE films SET
-           (title, genre, price, rating)
-           = ($1, $2, $3, $4)
-           WHERE id = $5"
-    values = [@title, @genre, @price, @rating, @id]
+           (title, genre, price, rating, rating_logo)
+           = ($1, $2, $3, $4, $5)
+           WHERE id = $6"
+    values = [@title, @genre, @price, @rating, @rating_logo, @id]
     SqlRunner.run(sql, values)
   end
 
@@ -122,6 +123,12 @@ class Film
     Screening.map_items(result)
   end
 
+  def show_start_times
+    screenings = screenings()
+    result = screenings.map{|screening| screening.start_time}
+    result
+  end
+
   def tickets()
     sql = "SELECT tickets.*
            FROM tickets
@@ -139,11 +146,12 @@ class Film
     tickets().size()
   end
 
-  def self.new_film(title, genre, price, rating)
+  def self.new_film(title, genre, price, rating, rating_logo)
     film = Film.new({'title' => title,
                      'genre' => genre,
                      'price' => price,
-                     'rating' => rating})
+                     'rating' => rating,
+                     'rating_logo' => rating_logo})
     film.save()
   end
 

@@ -11,11 +11,15 @@ also_reload('./models/*')
 
 
 get '/home' do
-  @films_data = AppData.all()
   erb(:home)
 end
 
-get '/home/book' do
+get '/home/showtimes' do
+  @screenings = Screening.all()
+  erb(:showtimes)
+end
+
+get '/home/showtimes/book' do
   @customers = Customer.all()
   @films = Film.all()
   @screenings = Screening.all()

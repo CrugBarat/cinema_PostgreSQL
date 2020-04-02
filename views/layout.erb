@@ -4,10 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="../public/css/style.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Monofett">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
   <title>Cinema</title>
 </head>
 <body>
-<%=yield%>
+  <h1>CINEMA</h1>
+  <hr class="hr1">
+  <div class="menu_grid">
+    <div class="grid-row menu_grid-row-sm">
+      <div class="menu_cell"><a href="/home">HOME</a></div>
+      <div class="menu_cell"><a href="/home/showtimes">SHOWTIMES</a></div>
+      <div class="menu_cell"><a href="/home/showtimes/book">BOOK</a></div>
+    </div>
+  </div>
+  <%=yield%>
 </body>
 </html>

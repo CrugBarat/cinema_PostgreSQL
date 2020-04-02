@@ -24,7 +24,8 @@ class Screening
   end
 
   def self.all()
-    sql = "SELECT * FROM screenings"
+    sql = "SELECT * FROM screenings
+           ORDER by screenings.start_time"
     result = SqlRunner.run(sql)
     self.map_items(result)
   end
@@ -110,6 +111,26 @@ class Screening
     values = [@film_id]
     result = SqlRunner.run(sql, values).first
     Film.new(result)
+  end
+
+  def show_film_title()
+    film = film()
+    film.title
+  end
+
+  def show_film_price()
+    film = film()
+    film.price
+  end
+
+  def show_film_genre()
+    film = film()
+    film.genre
+  end
+
+  def show_rating_logo()
+    film = film()
+    film.rating_logo
   end
 
   def screen()

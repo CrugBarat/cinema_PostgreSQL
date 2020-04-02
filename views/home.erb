@@ -1,16 +1,11 @@
-<p>Welcome to The Cinema</p>
-
-<a href="/home/book">
-<button type="button" name="button">BOOK</button>
-</a>
-<hr>
-<p>SHOWTIMES:</p>
-<% for film in @films_data %>
-  <hr>
-  <p>Film: <%=film.title()%></p>
-  <p>Start Time: <%=film.start_time()%></p>
-  <p>End Time: <%=film.end_time()%></p>
-  <p>Genre: <%=film.genre()%></p>
-  <p>Price: £<%=film.price()%></p>
-  <hr>
-<%end%>
+<a href="/home/showtimes">
+<div class="grid">
+  <div class="grid-row grid-row-sm">
+    <div class="cell"><img src="/jackie_brown.webp" alt=""></div>
+    <div class="cell"><img src="/once_upon.webp" alt=""></div>
+  </div>
+  <div class="grid-row grid-row-sm">
+    <div class="cell"><img src="/pulp_fiction.webp" alt=""></div>
+    <div class="cell"><img src="/reservoir_dogs.webp" alt=""></div>
+  </div>
+  </a>

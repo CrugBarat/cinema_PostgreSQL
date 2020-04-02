@@ -24,7 +24,8 @@ CREATE TABLE films (
   title VARCHAR(255),
   genre VARCHAR(255),
   price DECIMAL,
-  rating INT
+  rating INT,
+  rating_logo VARCHAR(255)
 );
 
 CREATE TABLE screenings (
