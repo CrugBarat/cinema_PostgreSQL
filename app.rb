@@ -1,7 +1,6 @@
 require('sinatra')
 require('sinatra/contrib/all') if development?
 
-require_relative('./models/app_data.rb')
 require_relative('./models/customer.rb')
 require_relative('./models/film.rb')
 require_relative('./models/screening.rb')
