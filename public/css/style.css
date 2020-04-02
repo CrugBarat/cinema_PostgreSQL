@@ -2,7 +2,7 @@
   padding-top: 50px;
   padding-left: 100px;
   padding-right: 100px;
-  padding-bottom: 100px;
+  padding-bottom: 60px;
 }
 
 .grid-row {
@@ -102,4 +102,34 @@ a {
 .rating_logo {
   max-width:5%;
   height:auto;
+}
+
+.foot {
+
+  clear: both;
+  margin-top: auto;
+  text-align: center;
+}
+
+html {
+box-sizing: inherit;
+}
+
+body {
+position: relative;
+margin: 0;
+padding-bottom: 6rem;
+min-height: 100%;
+}
+
+.footer {
+  font-family: "Roboto", monospace;
+  font-size: 18px;
+  color: black;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  text-align: center;
 }

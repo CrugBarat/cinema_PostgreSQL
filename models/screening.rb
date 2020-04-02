@@ -141,6 +141,11 @@ class Screening
     Screen.new(result)
   end
 
+  def show_screen_name()
+    screen = screen()
+    screen.name
+  end
+
   def customers()
     sql = "SELECT customers.*
            FROM customers
