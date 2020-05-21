@@ -1,3 +1,17 @@
+html {
+  box-sizing: inherit;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  padding-bottom: 6rem;
+  min-height: 100%;
+  text-align: center;
+  display: block;
+  font-family: "Roboto", monospace;
+}
+
 .grid {
   padding-top: 50px;
   padding-left: 100px;
@@ -29,7 +43,6 @@
   padding-left: 10px;
   padding-right: 10px;
   padding-bottom: 10px;
-  font-family: "Roboto", monospace;
   font-size: 20px;
   text-align: center;
   color: black;
@@ -46,22 +59,9 @@
   }
 }
 
-img { width: 100%; height: auto; }
-
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-}
-
-li {
-  float: left;
-}
-
-li a {
-  display: block;
-  padding: 10px;
+img {
+  width: 100%;
+  height: auto;
 }
 
 h1 {
@@ -85,14 +85,12 @@ a {
 }
 
 .showtimes {
-  font-family: "Roboto", monospace;
   font-size: 17px;
   text-align: center;
   color: black;
 }
 
 .film_title {
-  font-family: "Roboto", monospace;
   font-size: 20px;
   font-weight: 700;
   text-align: center;
@@ -101,29 +99,40 @@ a {
 
 .rating_logo {
   max-width:5%;
-  height:auto;
+  height: auto;
 }
 
-.foot {
-
-  clear: both;
-  margin-top: auto;
-  text-align: center;
+.form-container {
+  margin-top: 50px;
+  width: 50%;
+  display: inline-block;
+  border: solid;
+  color: black;
 }
 
-html {
-box-sizing: inherit;
+select {
+  width: 99%;
+  float: left;
+  border: solid;
+  font-size: 20px;
+  margin: 5px;
+  height: 30px;
 }
 
-body {
-position: relative;
-margin: 0;
-padding-bottom: 6rem;
-min-height: 100%;
+.button-container {
+  display: inline-block;
+  width: 80%;
+}
+
+input {
+  border: solid;
+  font-size: 20px;
+  margin: 5px;
+  height: 30px;
+  width: 50%;
 }
 
 .footer {
-  font-family: "Roboto", monospace;
   font-size: 18px;
   color: black;
   position: absolute;
